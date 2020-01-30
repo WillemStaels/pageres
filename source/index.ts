@@ -31,6 +31,7 @@ export interface Options {
 	readonly css?: string;
 	readonly script?: string;
 	readonly cookies?: ReadonlyArray<string | {[key: string]: string}>;
+	readonly args?: ReadonlyArray<string | {[key: string]: string}>;
 	readonly filename?: string;
 	readonly incrementalName?: boolean;
 	readonly selector?: string;
@@ -266,7 +267,10 @@ export default class Pageres extends EventEmitter {
 			scaleFactor: options.scale === undefined ? 1 : options.scale,
 			type: options.format === 'jpg' ? 'jpeg' : 'png',
 			userAgent: options.userAgent,
-			headers: options.headers
+			headers: options.headers,
+			launchOptions: {
+				args: options.args === undefined ? [] : options.args
+			}
 		};
 
 		if (options.username && options.password) {
